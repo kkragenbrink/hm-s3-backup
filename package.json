@@ -1,0 +1,29 @@
+{
+    "name"                              : "hm-s3-backup",
+    "version"                           : "0.1.0",
+    "author"                            : "Kevin Kragenbrink <kevin@writh.net>",
+    "description"                       : "A script to backup Haunted Memories' data to AWS S3 on a nightly basis.",
+    "scripts" : {
+        "start"                         : "node ./hm-s3-backup"
+    },
+    "repository" : {
+        "type"                          : "git",
+        "url"                           : "https://github.com/kkragenbrink/hm-s3-backup.git"
+    },
+    "keywords" : [
+        "backup",
+        "amazon",
+        "s3",
+        "haunted-memories"
+    ],
+    "dependencies" : {
+        "knox"                          : "0.3.x"
+    },
+    "devDependencies" : {
+        "mocha"                         : "1.5.x"
+    },
+    "license"                           : "MIT",
+    "engines" : {
+        "node"                          : ">=0.8"
+    }
+}
