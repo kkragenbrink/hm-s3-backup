@@ -31,16 +31,37 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-var client;
+var args                                = process.argv.slice(2, process.argv.length);
 var config                              = require('../config/backup');
 var knox                                = require('knox');
+var actions                             = {};
 
-//client = knox.createClient({
-//    key                                 : config.aws.apiKey,
-//    secret                              : config.aws.apiSecret
-//});
+actions.backup = function(client, files) {
 
-var test = function() {
-    console.log((new Date).getTime())
+    for (var i in files) {
+        var file                        = files[i];
+        var parts                       = file.split('/');
+        var fileName                    = parts[parts.length];
+        console.log(fileName);
+    }
 };
-setInterval(test, 1000);
+
+var createClient = function(bucket) {
+
+    return knox.createClient({
+        key                             : config.aws.apiKey,
+        secret                          : config.aws.apiSecret,
+        bucket                          : bucket
+    });
+};
+
+var getArgument = function(n) {
+    return args.shift();
+};
+
+for (var bucket in config.data) {
+    var client                              = createClient(bucket);
+    var action                              = getArgument();
+
+    actions[action](client, config.data[bucket]);
+}
